@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/VirusAttack/Scenes/Menus.unity
+  - enabled: 1
+    path: Assets/Scenes/Menus.unity
     guid: a809857348d4a05418039606afb42d01
   - enabled: 1
-    path: Assets/VirusAttack/Scenes/MotherboardLevel.unity
+    path: Assets/Scenes/LobbyScene.unity
+    guid: 5eea739bcdf9f9948bcdfad423c616b7
+  - enabled: 1
+    path: Assets/Scenes/MotherboardLevel.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/VirusAttack/Scenes/Startup.unity
-    guid: a34c19f9ca3ed6d4ea4d0e92a84d9a5e
   m_configObjects: {}

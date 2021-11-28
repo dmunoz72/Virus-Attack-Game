@@ -9,7 +9,7 @@ using Photon.Realtime;
 public class ServerLauncher : MonoBehaviourPunCallbacks{
 	
 	public static ServerLauncher Instance;
-	
+	private int instanceCount = 0;
 	[SerializeField] TMP_InputField roomNameInputField;
 	[SerializeField] TMP_Text errorText;
 	[SerializeField] TMP_Text roomNameText;
@@ -40,8 +40,14 @@ public class ServerLauncher : MonoBehaviourPunCallbacks{
 	}
 	public override void OnJoinedLobby(){ //When lobby is joined loads CJMenu aka Lobby menu
 		Debug.Log("Joined Lobby");
-		LobbyMenuManager.Instance.OpenMenu("CJMenu");
-		PhotonNetwork.NickName = "Player " + Random.Range(1,100).ToString("000");
+		if(instanceCount == 0){
+			LobbyMenuManager.Instance.OpenMenu("MapSelect");
+			instanceCount++;
+		}
+		else{
+			LobbyMenuManager.Instance.OpenMenu("CJMenu");
+		}
+		PhotonNetwork.NickName = "Player " + Random.Range(1,100).ToString("00");
 	}
 	
 	public void CreateRoom(){

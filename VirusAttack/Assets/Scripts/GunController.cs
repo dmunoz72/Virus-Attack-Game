@@ -8,11 +8,15 @@ public class GunController : MonoBehaviour {
 	// Variables don't change through out code, create menu in unity as well
 	
 	PhotonView view;
+
+	//[SerializeField] GameObject cameraHolder;
+	float verticalLookRotation;
+
 	
 	[Header("Gun Settings")]
 	public float fireRate = 0.1f;
 	public int magSize = 30;
-	public int reservedAmmoCapacity = 70;
+	public int reservedAmmoCapacity = 270;
 	public int damageDone = 10;
 	public float range = 100f;
 	
@@ -80,24 +84,30 @@ public class GunController : MonoBehaviour {
 				}
 			}
 		}
+		if(!view.IsMine){
+			return;
+		}
 	}
 	
 	    private void DetermineRotation(){
-			
-        Vector2 mouseAxis = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
-        mouseAxis *= mouseSensitivity;
-        _currentRotation += mouseAxis;
+		  /*transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+          	verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        	verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+        	cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+			*/
+          Vector2 mouseAxis = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
-        _currentRotation.y = Mathf.Clamp(_currentRotation.y, -90, 90);
+          mouseAxis *= mouseSensitivity;
+          _currentRotation += mouseAxis;
 
-        transform.localPosition += (Vector3)mouseAxis * weaponSwayAmount / 1000;
+          _currentRotation.y = Mathf.Clamp(_currentRotation.y, -90, 90);
 
-        transform.root.localRotation = Quaternion.AngleAxis(_currentRotation.x, Vector3.up);
-        transform.parent.localRotation = Quaternion.AngleAxis(-_currentRotation.y, Vector3.right);
+          //transform.localPosition += (Vector3)mouseAxis * weaponSwayAmount / 1000;
 
-
-    }
+          //transform.root.localRotation = Quaternion.AngleAxis(_currentRotation.x, Vector3.up);
+          //transform.parent.localRotation = Quaternion.AngleAxis(-_currentRotation.y, Vector3.right);
+		}
     private void DetermineAim(){
 		
         Vector3 target = normalLocalPosition;

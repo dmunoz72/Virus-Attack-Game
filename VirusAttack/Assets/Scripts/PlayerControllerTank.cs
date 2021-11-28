@@ -12,7 +12,7 @@ public class PlayerControllerTank : MonoBehaviour
     private CharacterController characterController;
     private Animator animator;
 
-    public float walkingSpeed = 7.5f;
+    public float walkingSpeed = 4.5f;
     public float runningSpeed = 11.5f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
@@ -20,9 +20,12 @@ public class PlayerControllerTank : MonoBehaviour
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
 
-    // CharacterController characterController;
+	public float mouseSensitivity = 1;
+
     Vector3 moveDirection = Vector3.zero;
-    float rotationX = 0;
+   // float rotationX = 0;
+    [SerializeField] GameObject cameraHolder;
+	float verticalLookRotation;
 
     [HideInInspector]
     public bool canMove = true;
@@ -48,11 +51,17 @@ public class PlayerControllerTank : MonoBehaviour
         }
 
 		if(view.IsMine){
+			lookAround();
+
 			// We are grounded, so recalculate move direction based on axes
 			Vector3 forward = transform.TransformDirection(Vector3.forward);
 			Vector3 right = transform.TransformDirection(Vector3.right);
-			// Press Left Shift to run
+			// Press Left Shift to run		
+			bool isWalking = Input.GetKey(KeyCode.W);
+			bool isAttacking = Input.GetKey(KeyCode.V);
 			bool isRunning = Input.GetKey(KeyCode.LeftShift);
+			animator.SetBool("isWalking", Input.GetKey(KeyCode.W));
+			animator.SetBool("isAttacking", Input.GetKey(KeyCode.V));
 			animator.SetBool("isRunning",Input.GetKey(KeyCode.LeftShift) );
 			float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
 			float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
@@ -80,14 +89,24 @@ public class PlayerControllerTank : MonoBehaviour
 			characterController.Move(moveDirection * Time.deltaTime);
 
 			// Player and Camera rotation
+			/*
 			if (canMove){
-			    rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+			    rotationX += -Input.GetAxis("Mouse X") * lookSpeed;
 			    rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
 			    playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-			    transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
-			}
-		
-			animator.SetBool("isRunning",Input.GetKey(KeyCode.LeftShift) );
+			    transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse Y") * lookSpeed, 0);
+			} */
+				
+		//	animator.SetBool("isRunning",Input.GetKey(KeyCode.LeftShift) );
 		}
     }
+
+    void lookAround(){
+        transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+        verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -80f, 80f);
+        cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+    }
+
+
 }

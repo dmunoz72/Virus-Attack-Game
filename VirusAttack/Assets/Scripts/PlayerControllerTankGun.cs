@@ -21,9 +21,6 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 	[SerializeField] TextMeshProUGUI ammoText;
 	[SerializeField] GameObject ui;
 
-	public int magSize = 30;
-	public int reservedAmmoCapacity = 270;
-
 	public const float maxHealth = 1000f;
 	public float currentHealth = maxHealth;
     public float walkingSpeed = 7.5f;
@@ -31,13 +28,10 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
     float jumpSpeed = 8.0f;
     float gravity = 20.0f;
     public Camera playerCamera;
-    float lookSpeed = 2.0f;
-	float lookXLimit = 45.0f;
-
 	public float mouseSensitivity = 1;
 
     Vector3 moveDirection = Vector3.zero;
-   // float rotationX = 0;
+  
     [SerializeField] GameObject cameraHolder;
 	float verticalLookRotation;
 
@@ -45,28 +39,18 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 	[SerializeField] Item[] items;
 	int itemIndex;
 	int previousItemIndex = -1;
-	
-	private int currentAmmo;
-	private int ammoInReserve;
 
-	public Vector3 normalLocalPosition;
-    public Vector3 aimingLocalPosition;
-
-	public GameObject placeholderGun;
     [HideInInspector]
     public bool canMove = true;
 
-	//Rigidbody rb;
 	void Awake(){
 		view = GetComponent<PhotonView>();
-		//rb  = GetComponent<Rigidbody>();
+		
 		playerManager = PhotonView.Find((int)view.InstantiationData[0]).GetComponent<PlayerManager>();
 	}
 
     void Start(){
-		currentAmmo = magSize;
-		ammoInReserve = reservedAmmoCapacity;
-		
+
         characterController = GetComponent<CharacterController>();
 		
         animator = GetComponent<Animator>();
@@ -75,7 +59,7 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 		
-		ammoText.text = magSize.ToString() + " | " + reservedAmmoCapacity.ToString();
+		//ammoText.text = magSize.ToString() + " | " + reservedAmmoCapacity.ToString();
 		playerHealthText.text = "+" + currentHealth;
 
 		if(view.IsMine){
@@ -84,7 +68,6 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 		else{
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(ui);
-			//Destroy(rb);
         }
     }
 
@@ -95,10 +78,11 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 
 		if(view.IsMine){
 			lookAround();
-			DetermineAim();
+			// DetermineAim();
 
-			playerHealthText.text = "+" + currentHealth;
-			ammoText.text = currentAmmo.ToString() + " | " + ammoInReserve.ToString();
+			// playerHealthText.text = "+" + currentHealth;
+			// ammoText.text = currentAmmo.ToString() + " | " + ammoInReserve.ToString();
+			
 			// We are grounded, so recalculate move direction based on axes
 			Vector3 forward = transform.TransformDirection(Vector3.forward);
 			Vector3 right = transform.TransformDirection(Vector3.right);
@@ -110,7 +94,7 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 			float movementDirectionY = moveDirection.y;
 			moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-			if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+			if (Input.GetButton("Jump") && characterController.isGrounded)
 			{
 				moveDirection.y = jumpSpeed;
 			}
@@ -129,19 +113,11 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 
 			// Move the controller
 			characterController.Move(moveDirection * Time.deltaTime);
-
-			// Player and Camera rotation
-			/*
-			if (canMove){
-			    rotationX += -Input.GetAxis("Mouse X") * lookSpeed;
-			    rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-			    playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-			    transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse Y") * lookSpeed, 0);
-			} */
-				
+						
 			animator.SetBool("isRunning",Input.GetKey(KeyCode.LeftShift) );
 		}
 
+		// Weapon switching
 		for(int i = 0; i  < items.Length; i++){
 			if(Input.GetKeyDown((i+1).ToString())){
 				EquipItem(i);
@@ -166,26 +142,7 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 			}
 		}
 
-		if(Input.GetMouseButtonDown(0) && currentAmmo > 0){
-			currentAmmo--;
-			ammoText.text = currentAmmo.ToString() + " | " + ammoInReserve.ToString();
-			items[itemIndex].Use();
-		}
-		
-		else if(Input.GetKeyDown(KeyCode.R) && currentAmmo < magSize && ammoInReserve > 0){
-			int amountNeeded = magSize - currentAmmo; // geting value of how much ammo is needed to fill mag
-				
-			if(amountNeeded >= ammoInReserve){ // if you need more ammo than you have in reserve
-				currentAmmo += ammoInReserve; // add whats in reserve to mag
-				ammoInReserve = 0; // set reserve ammo to 0
-			}
-				
-			else{ // if you need less than whats in reserve then,
-				currentAmmo = magSize;     // fill up mag
-				ammoInReserve -= amountNeeded;  // subtract ammount needed from reserve
-			}
-		}
-
+			
 		if(transform.position.y < -10f){
 			Die();
 		}
@@ -198,20 +155,6 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
         verticalLookRotation = Mathf.Clamp(verticalLookRotation, -80f, 80f);
         cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
     }
-
-	private void DetermineAim(){
-		Debug.Log("In Determine Aim");
-        Vector3 target = normalLocalPosition;
-        if (Input.GetMouseButton(1)) 
-            target = aimingLocalPosition;
-
-        Vector3 desiredPosition = Vector3.Lerp(placeholderGun.transform.localPosition, target, Time.deltaTime * 10);
-
-        placeholderGun.transform.localPosition = desiredPosition;
-    }
-
-	
-
 
 
 	public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps){
@@ -266,5 +209,4 @@ public class PlayerControllerTankGun : MonoBehaviourPunCallbacks, IDamageable
 	void Die(){
 		playerManager.Die();
 	}
-
 }

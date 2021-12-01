@@ -89,9 +89,7 @@ public class ServerLauncher : MonoBehaviourPunCallbacks{
 	public void JoinRoom(RoomInfo info){
 		PhotonNetwork.JoinRoom(info.Name);
 		LobbyMenuManager.Instance.OpenMenu("Connecting");
-
 	}
-	
 	
 	public void LeaveRoom(){
 		PhotonNetwork.LeaveRoom();

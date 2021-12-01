@@ -126,6 +126,55 @@ Transform:
   m_Father: {fileID: 3188190648917784616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1380832265386194841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3119777934960639110}
+  - component: {fileID: 2053544430839455096}
+  m_Layer: 0
+  m_Name: BasicGunController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3119777934960639110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380832265386194841}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.234, y: -0.586, z: -0.238}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2133874388739377291}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053544430839455096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380832265386194841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcd011d855993e149a230cf0140b2d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magSize: 30
+  reservedAmmoCapacity: 270
+  normalLocalPosition: {x: 0.311, y: -0.215, z: 0.133}
+  aimingLocalPosition: {x: 0, y: -0.1, z: 0}
+  placeholderGun: {fileID: 6172917234885769013}
+  Gun: {fileID: 5554524306841883608}
 --- !u!1 &1497079608037688070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,6 +2023,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3119777934960639110}
   - {fileID: 3147505738806157567}
   m_Father: {fileID: 3873733286559532879}
   m_RootOrder: 0
@@ -2170,8 +2220,6 @@ MonoBehaviour:
   playerHealthText: {fileID: 3781625896444625950}
   ammoText: {fileID: 3781625896494756791}
   ui: {fileID: 3781625897680267829}
-  magSize: 30
-  reservedAmmoCapacity: 270
   currentHealth: 1000
   walkingSpeed: 7.5
   runningSpeed: 11.5
@@ -2181,9 +2229,6 @@ MonoBehaviour:
   items:
   - {fileID: 5554524306841883608}
   - {fileID: 6512211353327145471}
-  normalLocalPosition: {x: 0.311, y: -0.215, z: 0.133}
-  aimingLocalPosition: {x: 0, y: -0.1, z: 0.133}
-  placeholderGun: {fileID: 6172917234885769013}
   canMove: 1
 --- !u!1 &4124649671033253831
 GameObject:
@@ -2584,13 +2629,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6172917234885769013}
-  m_LocalRotation: {x: -0.009962303, y: -0.70821935, z: 0.70585144, w: -0.009995721}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0.311, y: -0.215, z: 0.133}
   m_LocalScale: {x: 0.03999998, y: 0.04999999, z: 0.10000001}
   m_Children: []
   m_Father: {fileID: 2133874388739377291}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 89.809, y: 0, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!33 &1440210185875706845
 MeshFilter:
   m_ObjectHideFlags: 0

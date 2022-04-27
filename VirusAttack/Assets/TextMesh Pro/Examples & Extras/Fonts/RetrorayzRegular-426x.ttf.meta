@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: d3c4f041a8fd3554aa685b049b693a7f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - RetroRayz
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 611ddb7c2af8e614a8d5e2b18009679e, type: 3}
+  - {fileID: 12800000, guid: 9313972ca79505d4b82d688703d528c0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

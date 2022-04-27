@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: dd14000293fd41348a13f9fc8be51bef
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - RetroBlaze
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 687845d378e09734e978fdfdab4d2024, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

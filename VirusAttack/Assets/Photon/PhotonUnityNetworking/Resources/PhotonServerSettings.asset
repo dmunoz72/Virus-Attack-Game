@@ -40,6 +40,10 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_TakeDamage
+  - OnTriggerStay
+  - OnTriggerEnter
+  - Die
+  - RPCap_TakeDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

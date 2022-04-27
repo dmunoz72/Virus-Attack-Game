@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MotherboardLevel.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/CharSelect.unity
+    guid: eb69c0a3f47ecca43b716d884c877fe0
+  - enabled: 1
+    path: Assets/Scenes/MouseMapFrame.unity
+    guid: 54dab0647296a0c4c9d276c6d7ff8c81
   m_configObjects: {}
